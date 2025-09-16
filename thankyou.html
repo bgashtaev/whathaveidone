@@ -163,8 +163,53 @@
       h1, h2 { font-size: 1.8rem; }
     }
 
+#music-container {
+  backdrop-filter: blur(10px);
+  background: rgba(255, 255, 255, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+  padding: 25px;
+  border-radius: 20px;
+  text-align: center;
+  margin: 30px auto;
+  max-width: 700px;
+  animation: fadeInUp 1s forwards;
+}
 
+#music-container h2 {
+  margin-bottom: 20px;
+  font-family: 'Caveat', cursive;
+  color: #ff4d88;
+  font-size: 2rem;
+}
 
+.track {
+  background: rgba(255, 255, 255, 0.7);
+  padding: 20px;
+  border-radius: 15px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+  margin-bottom: 20px;
+  text-align: left;
+  transition: transform 0.3s ease;
+}
+
+.track:hover {
+  transform: translateY(-4px);
+}
+
+.track p {
+  font-size: 15px;
+  color: #444;
+  margin-bottom: 12px;
+}
+
+.track audio {
+  width: 100%;
+  border-radius: 12px;
+  background: linear-gradient(145deg, #ffdde1, #ee9ca7);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  accent-color: #ff4d88; /* окрашивает play и прогресс */
+}
   </style>
 </head>
 
