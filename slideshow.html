@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Photo Slideshow</title>
+  <style>
+    body {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      background-color: #ffebcc;
+      font-family: 'Poppins', sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    .slideshow-container {
+      max-width: 80%;
+      position: relative;
+      margin: auto;
+      background-color: #fff;
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    .slides {
+      display: none;
+    }
+
+    img {
+      width: 100%;
+      border-radius: 15px;
+    }
+
+    .prev, .next {
+      cursor: pointer;
+      position: absolute;
+      top: 50%;
+      width: auto;
+      margin-top: -22px;
+      padding: 16px;
+      color: white;
+      font-weight: bold;
+      font-size: 18px;
+      transition: 0.6s ease;
+      border-radius: 0 3px 3px 0;
+      user-select: none;
+      background-color: rgba(0,0,0,0.5);
+    }
+
+    .next {
+      right: 0;
+      border-radius: 3px 0 0 3px;
+    }
+
+    .prev:hover, .next:hover {
+      background-color: rgba(0,0,0,0.8);
+    }
+
+    .dot-container {
+      text-align: center;
+      padding: 20px;
+      background-color: #ffebee;
+      border-radius: 15px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      position: relative;
+      top: 10px;
+    }
+
+    .dot {
+      cursor: pointer;
+      height: 15px;
+      width: 15px;
+      margin: 0 2px;
+      background-color: #bbb;
+      border-radius: 50%;
+      display: inline-block;
+      transition: background-color 0.6s ease;
+    }
+
+    .active, .dot:hover {
+      background-color: #717171;
+    }
+
+    /* Loading screen */
+    #loadingScreen {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: #fff;
+      z-index: 9999;
+    }
+
+    .heart {
+      font-size: 4rem;
+      color: #ff4d4d;
+      animation: pulse 1.5s infinite;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .loading-text {
+      font-size: 1.5rem;
+      margin-top: 20px;
+      color: #ff4d4d;
+      text-align: center;
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.2); opacity: 0.7; }
+      100% { transform: scale(1); }
+    }
+
+    /* Back button */
+    .back-button {
+      margin: 40px 0 60px 0;
+      background-color: #ff4d4d;
+      color: white;
+      border: none;
+      padding: 12px 24px;
+      font-size: 16px;
+      border-radius: 12px;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      transition: all 0.3s ease;
+    }
+
+    .back-button:hover {
+      background-color: #e33e3e;
+      transform: scale(1.05);
+    }
+
+  </style>
+</head>
+<body>
+  <!-- Loading screen -->
+  <div id="loadingScreen">
+    <div>
+      <div class="heart">❤️</div>
+      <div class="loading-text">Lovely photos are loading...</div>
+    </div>
+  </div>
+
+  <!-- Slideshow -->
+  <div class="slideshow-container">
+    <div class="slides"><img src="photo1.jpg" alt="Photo 1"></div>
+    <div class="slides"><img src="photo2.jpg" alt="Photo 2"></div>
+    <div class="slides"><img src="photo3.jpg" alt="Photo 3"></div>
+    <div class="slides"><img src="photo4.jpg" alt="Photo 4"></div>
+    <div class="slides"><img src="photo5.jpg" alt="Photo 5"></div>
+    <div class="slides"><img src="photo6.jpg" alt="Photo 6"></div>
+    <div class="slides"><img src="photo7.jpg" alt="Photo 7"></div>
+    <div class="slides"><img src="photo8.jpg" alt="Photo 8"></div>
+    <div class="slides"><img src="photo9.jpg" alt="Photo 9"></div>
+    <div class="slides"><img src="photo10.jpg" alt="Photo 10"></div>
+    <div class="slides"><img src="photo11.jpg" alt="Photo 11"></div>
+    <div class="slides"><img src="photo12.jpg" alt="Photo 12"></div>
+    <div class="slides"><img src="photo13.jpg" alt="Photo 13"></div>
+    <div class="slides"><img src="photo14.jpg" alt="Photo 14"></div>
+
+    <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+    <a class="next" onclick="plusSlides(1)">&#10095;</a>
+  </div>
+
+  <div class="dot-container">
+    <span class="dot" onclick="currentSlide(1)"></span>
+    <span class="dot" onclick="currentSlide(2)"></span>
+    <span class="dot" onclick="currentSlide(3)"></span>
+    <span class="dot" onclick="currentSlide(4)"></span>
+    <span class="dot" onclick="currentSlide(5)"></span>
+    <span class="dot" onclick="currentSlide(6)"></span>
+    <span class="dot" onclick="currentSlide(7)"></span>
+    <span class="dot" onclick="currentSlide(8)"></span>
+    <span class="dot" onclick="currentSlide(9)"></span>
+    <span class="dot" onclick="currentSlide(10)"></span>
+    <span class="dot" onclick="currentSlide(11)"></span>
+    <span class="dot" onclick="currentSlide(12)"></span>
+    <span class="dot" onclick="currentSlide(13)"></span>
+    <span class="dot" onclick="currentSlide(14)"></span>
+  </div>
+
+  <!-- Back to Main Button -->
+  <button class="back-button" onclick="window.location.href='thankyou.html'">
+    ← Назад на главную
+  </button>
+
+  <script>
+    // Hide loading screen
+    window.addEventListener("load", function () {
+      setTimeout(function () {
+        document.getElementById("loadingScreen").style.display = "none";
+      }, 4000);
+    });
+
+    let slideIndex = 1;
+    showSlides(slideIndex);
+
+    function plusSlides(n) {
+      showSlides(slideIndex += n);
+    }
+
+    function currentSlide(n) {
+      showSlides(slideIndex = n);
+    }
+
+    function showSlides(n) {
+      let i;
+      let slides = document.getElementsByClassName("slides");
+      let dots = document.getElementsByClassName("dot");
+      if (n > slides.length) { slideIndex = 1 }
+      if (n < 1) { slideIndex = slides.length }
+      for (i = 0; i < slides.length; i++) {
+        slides[i].style.display = "none";
+      }
+      for (i = 0; i < dots.length; i++) {
+        dots[i].className = dots[i].className.replace(" active", "");
+      }
+      slides[slideIndex - 1].style.display = "block";
+      dots[slideIndex - 1].className += " active";
+    }
+
+    // Auto slideshow
+    let slideInterval = setInterval(() => plusSlides(1), 5000);
+  </script>
+</body>
+</html>

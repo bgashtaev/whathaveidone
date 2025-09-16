@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Thank You and Optional Quiz!</title>
+
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Caveat:wght@600&family=Poppins:wght@400;600&display=swap');
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(to bottom, #ffe0e6, #d0f0ff);
+      color: #333;
+      overflow-x: hidden;
+    }
+
+    .loading {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      width: 100%;
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 10;
+      flex-direction: column;
+      background: linear-gradient(to bottom, #ffe0e6, #d0f0ff);
+    }
+
+    .loading p {
+      font-size: 24px;
+      color: #ff4d88;
+      margin: 20px;
+    }
+
+    .heart {
+      font-size: 48px;
+      color: #ff4d88;
+      animation: heartbeat 1.5s infinite;
+    }
+
+    @keyframes heartbeat {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.2); }
+    }
+
+    .hand {
+      position: absolute;
+      width: 120px;
+      height: auto;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 3;
+    }
+
+    .left-hand {
+      left: -150px;
+      animation: moveHandLeft 3s ease-in-out forwards;
+    }
+
+    .right-hand {
+      right: -150px;
+      animation: moveHandRight 3s ease-in-out forwards;
+    }
+
+    @keyframes moveHandLeft {
+      from { left: -150px; }
+      to { left: calc(50% - 60px); }
+    }
+
+    @keyframes moveHandRight {
+      from { right: -150px; }
+      to { right: calc(50% - 60px); }
+    }
+
+    .content {
+      display: none;
+      padding: 20px;
+    }
+
+    .message, .timer, #memory-container, #letter-container {
+      backdrop-filter: blur(10px);
+      background: rgba(255, 255, 255, 0.6);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+      padding: 30px;
+      border-radius: 15px;
+      text-align: center;
+      margin: 20px auto;
+      max-width: 700px;
+      animation: fadeInUp 1s forwards;
+    }
+
+    h1, h2 {
+      font-family: 'Caveat', cursive;
+      color: #ff4d88;
+      font-size: 2.2rem;
+    }
+
+    .gif {
+      margin-top: 20px;
+      width: 200px;
+      border-radius: 15px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    button {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(145deg, #ff6f91, #ff9671);
+      color: white;
+      border: none;
+      padding: 12px 24px;
+      border-radius: 12px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      margin: 8px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    button:hover {
+      transform: scale(1.05);
+      background: linear-gradient(145deg, #ff3e73, #ff7e5f);
+    }
+
+    button:active {
+      transform: scale(1);
+    }
+
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(50px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .heart-fall {
+      position: absolute;
+      top: -50px;
+      font-size: 24px;
+      color: #ff4d88;
+      animation: fall 7s infinite ease-in-out;
+      opacity: 0.7;
+    }
+
+    @keyframes fall {
+      0% { top: -50px; opacity: 1; transform: translateX(0) scale(1); }
+      50% { opacity: 0.5; transform: translateX(20px) scale(1.3); }
+      100% { top: 100vh; opacity: 0; transform: translateX(-20px) scale(1.1); }
+    }
+
+    .heart-fall:nth-child(n) {
+      left: calc(10% * var(--i));
+      animation-delay: calc(0.5s * var(--i));
+    }
+
+    @media (max-width: 600px) {
+      .hand { width: 80px; }
+      .gif { width: 140px; }
+      h1, h2 { font-size: 1.8rem; }
+    }
+
+    #music-container {
+  backdrop-filter: blur(10px);
+  background: rgba(255, 255, 255, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  border-radius: 15px;
+  text-align: center;
+  margin: 20px auto;
+  max-width: 600px;
+  animation: fadeInUp 1s forwards;
+}
+
+#music-container h2 {
+  margin-bottom: 15px;
+  font-family: 'Caveat', cursive;
+  color: #ff4d88;
+}
+
+#music-container audio {
+  display: block;
+  margin: 10px auto;
+  width: 100%;
+  max-width: 500px;
+  border-radius: 12px;
+}
+
+  </style>
+</head>
+
+<body>
+  <div class="loading">
+    <img src="handM.png" alt="Left Hand" class="hand left-hand">
+    <img src="handB.png" alt="Right Hand" class="hand right-hand">
+    <div class="heart">💙</div>
+    <p>Website is loading...</p>
+  </div>
+
+  <div class="timer">
+    <h2>Сколько времени прошло с нашей последней встречи:</h2>
+    <button onclick="window.open('https://bgashtaev.github.io/da/', '_blank')">26 September</button>
+    <img src="https://i.postimg.cc/j5rCLf8c/cute-cats-cuddle.gif" alt="Fun GIF" class="gif">
+    <p id="timeElapsed"></p>
+  </div>
+
+  <div class="message">
+    <h2>"Lets stay forever 21!"</h2>
+    <p>Может я не прав, может нам стоит заново подружиться чтобы наладить коннект.</p>
+    <p>И если в тебе хоть что-то осталось, хоть какое-то место для меня в твоей жизни и в твоем сердце</p>
+    <p>то дай мне об этом знать.</p>
+    <audio controls autoplay loop>
+      <source src="donderry.ogg" type="audio/ogg">
+      Your browser does not support the audio element.
+    </audio>
+    <img src="https://i.postimg.cc/BQgJSH34/chd.gif" alt="Sample GIF" class="gif">
+    <div class="button-container">
+      <button onclick="window.location.href = 'fun-quiz.html'">Fun Quiz</button>
+      <button onclick="window.open('wheel-of-love.html', '_blank')">20 Facts</button>
+      <button onclick="window.open('slideshow.html', '_blank')">Back to Happiness</button>
+      <button onclick="window.location.href = 'song-memories.html'">True Conversation</button>
+      <button onclick="window.open('letter.html', '_blank')">Letter</button>
+      <button onclick="window.location.href = 'ourjorney.html'">Our Journey</button>
+      <button onclick="window.open('Summary.html', '_blank')">Summary</button>
+    </div>
+
+    <div id="memory-container">
+      <p id="memory-text">Click the button to generate a random memory.</p>
+      <button id="generate-btn">Past Memories</button>
+    </div>
+
+    <div id="letter-container">
+      <p id="letter-text">Click the button to leave a message</p>
+      <button onclick="window.open('https://bgashtaev.github.io/letters/', '_blank')">View Messages</button>
+    </div>
+  </div>
+
+  <div id="music-container">
+  <h2>Стишки и Песни 🎶</h2>
+  <div class="track">
+    <p>🌸 Когда я жила в Кыргызстане мне папа звонил и всегда просил выучить стишок или песню до следующего звонка</p>
+    <audio controls>
+      <source src="audio1.mp3" type="audio/ogg">
+      <source src="audio1.mp3" type="audio/mpeg">
+      Your browser does not support the audio element.
+    </audio>
+  </div>
+
+  <div class="track">
+    <audio controls>
+      <source src="audio2.mp3" type="audio/ogg">
+      <source src="audio2.mp3" type="audio/mpeg">
+    </audio>
+  </div>
+
+  <div class="track">
+    <audio controls>
+      <source src="audio3.mp3" type="audio/ogg">
+      <source src="audio3.mp3" type="audio/mpeg">
+    </audio>
+  </div>
+
+  <div class="track">
+    <audio controls>
+      <source src="audio4.mp3" type="audio/ogg">
+      <source src="audio4.mp3" type="audio/mpeg">
+    </audio>
+  </div>
+
+  <div class="track"> 
+    <p>Честно, меня так умилял твой голос, так приятно слушать тебя</p> 
+  </div>
+</div>
+
+  <div class="content">
+    <div class="message">
+      <h1>"Твое Имя" 2016</h1>
+      <p>Нити сплетаются и обретают форму.</p>
+      <p>Скручиваются, перепутываются, порой распутываются, рвутся,</p>
+      <p>Но потом сплетаются вновь. Это - Мусуби, плетение узлов.</p>
+      <p>Это - само время.</p>
+      <img src="heart.jpg" alt="Description of Image" class="gif">
+    </div>
+  </div>
+
+  <!-- Falling hearts -->
+  <div class="heart-fall" style="--i:1;">💟</div>
+  <div class="heart-fall" style="--i:2;">💙</div>
+  <div class="heart-fall" style="--i:3;">💟</div>
+  <div class="heart-fall" style="--i:4;">💙</div>
+  <div class="heart-fall" style="--i:5;">💟</div>
+  <div class="heart-fall" style="--i:6;">💙</div>
+  <div class="heart-fall" style="--i:7;">💟</div>
+  <div class="heart-fall" style="--i:8;">💙</div>
+
+  <script>
+    window.addEventListener('load', function () {
+      setTimeout(() => {
+        document.querySelector('.loading').style.display = 'none';
+        document.querySelector('.content').style.display = 'block';
+      }, 3000);
+    });
+
+    const memories = [
+      "23 сентября 2022 года мы начали встречаться",
+      "6 февраля 2023 года я написал тебе 20 фактов, которые я люблю в тебе",
+      "19 декабря 2023 года мы впервые обрели друг друга вживую",
+      "5 января 2023 года мы зарегистрировали свой брак онлайн",
+      "25 декабря 2023 года я впервые тебе приготовил вкусненькое",
+      "В один из дней в Дубае, я ходил по ДубайМоллу в одних носках, а потом на спине нес тебя до дома",
+      "Я тебя нес на спине до общаги",
+      "У нас с тобой был марафон по Гарри Поттеру",
+      "Мы всегда отдыхали на той скамейке",
+      "GIF спокойной ночи в Whatsup перед сном",
+      "Наше первое аниме Твое Имя",
+      "6 января 2024 года ты заказала мне биг тейсти когда мне было одиноко без тебя",
+      "Как ты меня учила умываться",
+      "Мне нравилось ходить с тобой за руку всегда",
+      "Так было классно целовать твои руку, за которую держался"
+    ];
+
+    document.getElementById('generate-btn').addEventListener('click', function () {
+      const randomIndex = Math.floor(Math.random() * memories.length);
+      document.getElementById('memory-text').textContent = memories[randomIndex];
+    });
+
+    const targetDate = new Date('2024-09-26T15:00:00');
+    const updateTimeElapsed = () => {
+      const now = new Date();
+      const diff = now - targetDate;
+      const seconds = Math.floor((diff / 1000) % 60);
+      const minutes = Math.floor((diff / (1000 * 60)) % 60);
+      const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+
+      document.getElementById('timeElapsed').textContent =
+        `${days} days, ${hours} hours, ${minutes} minutes, ${seconds} seconds`;
+    };
+
+    updateTimeElapsed();
+    setInterval(updateTimeElapsed, 1000);
+
+     (function() {
+    const audios = document.querySelectorAll('#music-container audio');
+    audios.forEach(audio => {
+      audio.addEventListener('play', function() {
+        audios.forEach(other => {
+          if (other !== audio) {
+            other.pause();
+          }
+        });
+      });
+    });
+  })();
+  </script>
+</body>
+</html>

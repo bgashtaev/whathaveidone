@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Fun Quiz</title>
+  <style>
+    body {
+      background-color: #000;
+      color: #fff;
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      overflow-x: hidden;
+    }
+
+    header {
+      text-align: center;
+      padding: 20px;
+      background-color: #e91e63;
+    }
+
+    .quiz-container {
+      text-align: center;
+      margin: 20px auto;
+      max-width: 800px;
+      padding: 20px;
+      background-color: #212121;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+    }
+
+    .tab-button {
+      background-color: #e91e63;
+      color: #fff;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 5px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+      margin: 5px;
+    }
+
+    .tab-button:hover {
+      background-color: #d81b60;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .tab-content {
+      margin-top: 20px;
+      background-color: #333;
+      padding: 20px;
+      border-radius: 10px;
+    }
+
+    .options label {
+      display: block;
+      margin: 10px 0;
+      font-size: 18px;
+      color: #fff;
+    }
+
+    .options input[type="radio"] {
+      margin-right: 10px;
+    }
+
+    img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 10px;
+      margin: 10px 0;
+    }
+
+    .popup {
+      position: absolute;
+      display: none;
+      background: #fff;
+      border-radius: 20px;
+      padding: 20px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+      z-index: 1000;
+      width: auto;
+      max-width: 300px;
+      text-align: center;
+      color: #333;
+      border: 2px solid #e91e63;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    .popup-left {
+      left: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+
+    .popup-right {
+      right: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+
+    @keyframes slideInLeft {
+      0% { transform: translateX(-100%); }
+      100% { transform: translateX(0); }
+    }
+
+    @keyframes slideInRight {
+      0% { transform: translateX(100%); }
+      100% { transform: translateX(0); }
+    }
+
+    .show-popup-left { animation: slideInLeft 1s ease-out; }
+    .show-popup-right { animation: slideInRight 1s ease-out; }
+
+    #loadingScreen {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: #fff;
+      z-index: 9999;
+    }
+
+    .heart {
+      font-size: 4rem;
+      color: #ff4d4d;
+      animation: pulse 1.5s infinite;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .loading-text {
+      font-size: 1.5rem;
+      margin-top: 20px;
+      color: #ff4d4d;
+      text-align: center;
+    }
+
+    #loadingScreen .additional-text {
+      font-size: 16px;
+      color: #ff69b4;
+      text-align: center;
+      margin-top: 10px;
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.2); opacity: 0.7; }
+      100% { transform: scale(1); }
+    }
+
+    /* Падающие сердечки */
+    .falling-heart {
+      position: fixed;
+      top: -50px;
+      font-size: 24px;
+      animation: fall 7s linear infinite;
+      color: #ff4d4d;
+      z-index: 1;
+    }
+
+    @keyframes fall {
+      0% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(100vh) rotate(360deg);
+        opacity: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Loading screen -->
+  <div id="loadingScreen">
+    <div>
+      <div class="heart">❤️</div>
+      <div class="loading-text">Love info is loading...</div>
+      <div class="additional-text">Небольшая викторина</div>
+    </div>
+  </div>
+
+  <!-- Falling hearts -->
+  <div class="falling-heart" style="left: 10%; animation-delay: 0s;">💖</div>
+  <div class="falling-heart" style="left: 30%; animation-delay: 1s;">💗</div>
+  <div class="falling-heart" style="left: 50%; animation-delay: 2s;">💓</div>
+  <div class="falling-heart" style="left: 70%; animation-delay: 3s;">💘</div>
+  <div class="falling-heart" style="left: 85%; animation-delay: 4s;">💕</div>
+
+  <header>
+    <h1>Fun Quiz!</h1>
+    <p>Нажми сначала на Q1,а затем на остальные. так будет удобнее.</p>
+    <p>Как пройдешь, можешь закрыть окно и вернуться на главную страницу к next кнпоке</p>
+  </header>
+
+  <div class="quiz-container">
+    <div class="tabs">
+      <button class="tab-button" onclick="openTab('tab1')">Question 1</button>
+      <button class="tab-button" onclick="openTab('tab2')">Question 2</button>
+      <button class="tab-button" onclick="openTab('tab3')">Question 3</button>
+      <button class="tab-button" onclick="goBackToMain()">Back to Main Page</button>
+    </div>
+
+    <!-- Tab 1 -->
+    <div id="tab1" class="tab-content hidden">
+      <p>Сколько раз мы друг другу написали “Выйди в окно”?</p>
+      <img src="window.jpg" alt="Main Image 1">
+      <div class="options">
+        <label><input type="radio" name="q1" onclick="showAnswer('answer1')"> 20 раз</label>
+        <label><input type="radio" name="q1" onclick="showAnswer('answer1')"> 22 раза</label>
+        <label><input type="radio" name="q1" onclick="showAnswer('answer1')"> 26 раз</label>
+        <label><input type="radio" name="q1" onclick="showAnswer('answer1')"> 30 раз</label>
+      </div>
+      <div id="answer1" class="hidden">
+        <p>Правильный ответ: 26 раз вместе.</p>
+        <p>Как думаешь кто чаще использовал?</p>
+        <div class="options">
+          <label><input type="radio" name="q1_sub" onclick="showSubAnswer('subAnswer1')"> Басан</label>
+          <label><input type="radio" name="q1_sub" onclick="showSubAnswer('subAnswer1')"> Мадина</label>
+        </div>
+      </div>
+      <div id="subAnswer1" class="hidden">
+        <p>Ответ: 16 раз Басан, 10 раз Мадина.</p>
+        <img src="us.jpg" alt="Sub-image">
+      </div>
+    </div>
+
+    <!-- Tab 2 -->
+    <div id="tab2" class="tab-content hidden">
+      <p>Сколько раз мы друг другу написали “Иди в хрюшку”?</p>
+      <img src="pig.jpg" alt="Main Image 2">
+      <div class="options">
+        <label><input type="radio" name="q2" onclick="showAnswer('answer2')"> 15 раз</label>
+        <label><input type="radio" name="q2" onclick="showAnswer('answer2')"> 17 раз</label>
+        <label><input type="radio" name="q2" onclick="showAnswer('answer2')"> 20 раз</label>
+        <label><input type="radio" name="q2" onclick="showAnswer('answer2')"> 22 раза</label>
+      </div>
+      <div id="answer2" class="hidden">
+        <p>Правильный ответ: 17 раз вместе.</p>
+        <p>Как думаешь кто чаще использовал?</p>
+        <div class="options">
+          <label><input type="radio" name="q2_sub" onclick="showSubAnswer('subAnswer2')"> Басан</label>
+          <label><input type="radio" name="q2_sub" onclick="showSubAnswer('subAnswer2')"> Мадина</label>
+        </div>
+      </div>
+      <div id="subAnswer2" class="hidden">
+        <p>Ответ: 8 раз Басан, 9 раз Мадина.</p>
+        <img src="us.jpg" alt="Sub-image">
+      </div>
+    </div>
+
+    <!-- Tab 3 -->
+    <div id="tab3" class="tab-content hidden">
+      <p>Сколько раз мы использовали слово “канава” в сообщениях друг другу?</p>
+      <img src="canava.jpg" alt="Main Image 3">
+      <div class="options">
+        <label><input type="radio" name="q3" onclick="showAnswer('answer3')"> 24 раза</label>
+        <label><input type="radio" name="q3" onclick="showAnswer('answer3')"> 26 раз</label>
+        <label><input type="radio" name="q3" onclick="showAnswer('answer3')"> 28 раз</label>
+        <label><input type="radio" name="q3" onclick="showAnswer('answer3')"> 30 раз</label>
+      </div>
+      <div id="answer3" class="hidden">
+        <p>Правильный ответ: 26 раз вместе.</p>
+        <p>Как думаешь кто чаще использовал?</p>
+        <div class="options">
+          <label><input type="radio" name="q3_sub" onclick="showSubAnswer('subAnswer3')"> Басан</label>
+          <label><input type="radio" name="q3_sub" onclick="showSubAnswer('subAnswer3')"> Мадина</label>
+        </div>
+      </div>
+      <div id="subAnswer3" class="hidden">
+        <p>Ответ: 20 раз Басан, 6 раз Мадина.</p>
+        <img src="us.jpg" alt="Sub-image">
+      </div>
+    </div>
+  </div>
+
+  <!-- Cloud popups -->
+  <div id="popupLeft" class="popup popup-left">
+    <p>Факт1: Мы написали "Я тебя люблю" 494 раза</p>
+  </div>
+  <div id="popupRight" class="popup popup-right">
+    <p>Факт2: Мы использовали "Епта" больше 600 раз</p>
+  </div>
+
+  <script>
+    function openTab(tabId) {
+      document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+      document.getElementById(tabId).classList.remove('hidden');
+    }
+
+    function showAnswer(id) {
+      document.getElementById(id).classList.remove('hidden');
+    }
+
+    function showSubAnswer(id) {
+      document.getElementById(id).classList.remove('hidden');
+    }
+
+    function goBackToMain() {
+      window.location.href = 'thankyou.html';
+    }
+
+    window.addEventListener('load', () => {
+      setTimeout(() => {
+        document.getElementById('loadingScreen').style.display = 'none';
+
+        setTimeout(() => {
+          document.getElementById('popupLeft').style.display = 'block';
+          document.getElementById('popupLeft').classList.add('show-popup-left');
+          document.getElementById('popupRight').style.display = 'block';
+          document.getElementById('popupRight').classList.add('show-popup-right');
+        }, 3000);
+      }, 3000);
+    });
+  </script>
+</body>
+</html>

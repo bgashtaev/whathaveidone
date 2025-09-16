@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Will You Go on a Date with Me?</title>
+  <link href="https://fonts.googleapis.com/css2?family=Nerko+One&display=swap" rel="stylesheet">
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      padding: 0;
+      font-family: 'Nerko One', cursive;
+      background-image: url('together.jpg');
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .container {
+      text-align: center;
+      background: rgba(255, 255, 255, 0.6);
+      padding: 40px 30px;
+      border-radius: 25px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+      backdrop-filter: blur(10px);
+      max-width: 90%;
+      z-index: 2;
+    }
+
+    h1 {
+      font-size: 2.3rem;
+      margin: 15px 0;
+      color: #ff4d88;
+    }
+
+    button {
+      padding: 15px 30px;
+      font-size: 1.4rem;
+      margin: 10px;
+      cursor: pointer;
+      background: linear-gradient(135deg, #ff6f91, #ff9671);
+      color: white;
+      border: none;
+      border-radius: 12px;
+      transition: all 0.4s ease;
+      position: relative;
+      box-shadow: 0 6px 16px rgba(255, 105, 135, 0.3);
+    }
+
+    button:hover {
+      transform: scale(1.08);
+      box-shadow: 0 0 20px rgba(255, 105, 180, 0.6);
+    }
+
+    #yesButton .heart-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 6px;
+      position: absolute;
+      top: -35px;
+      left: 50%;
+      transform: translateX(-50%);
+      opacity: 0;
+      transition: opacity 0.5s ease;
+      pointer-events: none;
+    }
+
+    .heart {
+      font-size: 1rem;
+      animation: float 2s ease-in-out infinite;
+      opacity: 0;
+      animation-delay: var(--delay);
+      transition: opacity 0.5s ease;
+    }
+
+    #yesButton:hover .heart-container {
+      opacity: 1;
+    }
+
+    #yesButton:hover .heart {
+      opacity: 1;
+    }
+
+    @keyframes float {
+      0% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+      100% { transform: translateY(0); }
+    }
+
+    #noButton {
+      position: absolute;
+      display: none;
+      transition: all 0.3s ease;
+    }
+
+    #message {
+      display: none;
+      font-size: 1.2rem;
+      color: #ff4d88;
+      margin-top: 20px;
+    }
+
+    /* Падающие блёстки */
+    .sparkle {
+      position: absolute;
+      width: 6px;
+      height: 6px;
+      background: white;
+      border-radius: 50%;
+      opacity: 0.5;
+      animation: sparkleMove 10s linear infinite;
+    }
+
+    @keyframes sparkleMove {
+      0% {
+        transform: translateY(0) scale(1);
+        opacity: 0.7;
+      }
+      50% {
+        transform: translateY(-50px) scale(1.2);
+        opacity: 0.3;
+      }
+      100% {
+        transform: translateY(100vh) scale(0.8);
+        opacity: 0;
+      }
+    }
+
+    @media (max-width: 600px) {
+      h1 {
+        font-size: 1.4rem;
+      }
+
+      button {
+        font-size: 1.1rem;
+        padding: 12px 24px;
+      }
+
+      #message {
+        font-size: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Блёстки -->
+  <div class="sparkle" style="left: 10%; animation-delay: 0s;"></div>
+  <div class="sparkle" style="left: 25%; animation-delay: 2s;"></div>
+  <div class="sparkle" style="left: 40%; animation-delay: 4s;"></div>
+  <div class="sparkle" style="left: 55%; animation-delay: 1s;"></div>
+  <div class="sparkle" style="left: 70%; animation-delay: 3s;"></div>
+  <div class="sparkle" style="left: 85%; animation-delay: 5s;"></div>
+
+  <div class="container">
+    <h1>Привет, ты пойдешь со мной гулять 26 сентября?</h1>
+    
+
+    <button id="yesButton">
+      Yes
+      <div class="heart-container">
+        <span class="heart" style="font-size: 1.2rem; --delay: 0s;">💖</span>
+        <span class="heart" style="font-size: 1.5rem; --delay: 0.2s;">💖</span>
+        <span class="heart" style="font-size: 1rem; --delay: 0.4s;">💖</span>
+        <span class="heart" style="font-size: 1.8rem; --delay: 0.6s;">💖</span>
+      </div>
+    </button>
+
+    <button id="noButton">No</button>
+    <div id="message">Haha, you thought it was going to be that easy?</div>
+  </div>
+
+  <script>
+    const yesButton = document.getElementById('yesButton');
+    const noButton = document.getElementById('noButton');
+    const message = document.getElementById('message');
+
+    function moveNoButton() {
+      const container = document.querySelector('.container');
+      const containerRect = container.getBoundingClientRect();
+      const buttonRect = noButton.getBoundingClientRect();
+
+      const x = Math.random() * (containerRect.width - buttonRect.width);
+      const y = Math.random() * (containerRect.height - buttonRect.height);
+
+      noButton.style.left = `${x}px`;
+      noButton.style.top = `${y}px`;
+    }
+
+    function hideAndShowButton() {
+      setTimeout(() => {
+        noButton.style.display = 'inline-block';
+        moveNoButton();
+      }, Math.random() * 400 + 100);
+    }
+
+    window.onload = () => {
+      noButton.style.display = 'inline-block';
+
+      noButton.onmouseover = hideAndShowButton;
+      noButton.onclick = () => {
+        message.style.display = 'block';
+        setTimeout(() => {
+          message.style.display = 'none';
+          hideAndShowButton();
+        }, 2000);
+      };
+
+      yesButton.onclick = () => {
+        window.location.href = 'thankyou.html';
+      };
+
+      hideAndShowButton();
+    };
+  </script>
+</body>
+</html>

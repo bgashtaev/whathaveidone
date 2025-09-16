@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>My Letter to You</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Caveat:wght@600&family=Poppins:wght@400;600&display=swap');
+
+    :root {
+      --bg: linear-gradient(to bottom, #ffe0e6, #d0f0ff);
+      --envelope-light: #f5edd1;
+      --envelope-tab: #ecdeb8;
+      --envelope-cover: #e6cfa7;
+      --heart-color: #ff4d88;
+      --text-color: #333;
+      --accent: #ff6f91;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: var(--bg);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 30px 15px;
+    }
+
+    .envelope-wrapper {
+      width: 420px;
+      height: auto;
+      position: relative;
+      background: transparent;
+      margin-top: 80px;
+      transition: margin-top 0.6s ease;
+    }
+
+    .envelope-wrapper.opened {
+      margin-top: 20px;
+    }
+
+    .envelope {
+      width: 100%;
+      height: 300px;
+      position: relative;
+      background: var(--envelope-light);
+      border-radius: 0 0 20px 20px;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+      cursor: pointer;
+      transition: transform 0.5s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .envelope::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      z-index: 2;
+      border-top: 170px solid var(--envelope-tab);
+      border-right: 210px solid transparent;
+      border-left: 210px solid transparent;
+      transition: transform 0.5s ease;
+      transform-origin: top;
+    }
+
+    .envelope.open::before {
+      transform: rotateX(180deg);
+      z-index: 0;
+    }
+
+    .heart {
+      width: 70px;
+      height: 70px;
+      background-color: var(--heart-color);
+      border-radius: 50%;
+      font-size: 28px;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      z-index: 3;
+      transition: opacity 0.4s;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+
+    .envelope.open .heart {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .letter {
+      position: absolute;
+      top: 110%;
+      left: 50%;
+      transform: translateX(-50%) scale(0.8);
+      width: 100%;
+      max-width: 420px;
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      opacity: 0;
+      padding: 25px 25px 30px;
+      box-sizing: border-box;
+      color: var(--text-color);
+      font-size: 16px;
+      line-height: 1.7;
+      transition: all 0.6s ease;
+      z-index: 1;
+      overflow-y: auto;
+      max-height: 300px;
+    }
+
+    .envelope.open .letter {
+      opacity: 1;
+      transform: translateX(-50%) scale(1);
+    }
+
+    .video-container {
+      display: none;
+      margin-top: 50px;
+      max-width: 700px;
+      width: 90%;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+      animation: fadeIn 1s ease forwards;
+    }
+
+    .video-visible {
+      display: block !important;
+    }
+
+    video {
+      width: 100%;
+      display: block;
+    }
+
+    .menu-button {
+      display: none;
+      margin-top: 30px;
+      padding: 12px 24px;
+      font-size: 16px;
+      border: none;
+      border-radius: 12px;
+      background: linear-gradient(145deg, var(--accent), #ff9671);
+      color: white;
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+      transition: all 0.3s ease;
+    }
+
+    .menu-button:hover {
+      transform: scale(1.05);
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="envelope-wrapper" id="envelopeWrapper">
+    <div class="envelope" id="envelope">
+      <div class="heart">💙</div>
+      <div class="letter">
+        <p><strong>Dear Madina,</strong></p>
+        <p>Ты не представляешь, как сильно твоя любовь осветила мою жизнь.</p>
+        <p>Я хотел создать этот сайт, чтобы ты лишний раз улыбнулась и вспомнила, как всё у нас было отлично.</p>
+        <p>Всё, что я тут сделал — это плод твоих вложений в нас за эти два года.</p>
+        <p>💌</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="video-container" id="videoBox">
+    <video controls>
+      <source src="together.MOV" type="video/mp4" />
+      Your browser does not support the video tag.
+    </video>
+  </div>
+
+  <button class="menu-button" id="menuButton" onclick="window.location.href='thankyou.html'">← На главную</button>
+
+  <script>
+    const envelopeWrapper = document.getElementById('envelopeWrapper');
+    const envelope = document.getElementById('envelope');
+    const videoBox = document.getElementById('videoBox');
+    const menuButton = document.getElementById('menuButton');
+    let openedOnce = false;
+
+    envelopeWrapper.addEventListener('click', () => {
+      envelope.classList.toggle('open');
+      envelopeWrapper.classList.toggle('opened');
+
+      if (!openedOnce && envelope.classList.contains('open')) {
+        openedOnce = true;
+        setTimeout(() => {
+          videoBox.classList.add('video-visible');
+        }, 5000);
+        setTimeout(() => {
+          menuButton.style.display = 'block';
+        }, 18000);
+      }
+    });
+  </script>
+</body>
+</html>

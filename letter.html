@@ -1,0 +1,184 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>My letter to you</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Caveat:wght@600&family=Poppins:wght@400;600&display=swap');
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(to bottom, #ffe0e6, #d0f0ff);
+      color: #333;
+      overflow-x: hidden;
+    }
+
+    #loadingScreen {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: linear-gradient(to bottom, #ffe0e6, #d0f0ff);
+      z-index: 9999;
+      flex-direction: column;
+    }
+
+    .heart {
+      font-size: 4rem;
+      color: #ff4d4d;
+      animation: pulse 1.5s infinite;
+    }
+
+    .loading-text {
+      font-size: 1.5rem;
+      margin-top: 20px;
+      color: #ff4d4d;
+      text-align: center;
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.2); opacity: 0.7; }
+      100% { transform: scale(1); }
+    }
+
+    .text-container {
+      text-align: center;
+      margin-top: 40px;
+      padding: 20px;
+      backdrop-filter: blur(10px);
+      background: rgba(255, 255, 255, 0.6);
+      border-radius: 15px;
+      max-width: 700px;
+      margin-left: auto;
+      margin-right: auto;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+    }
+
+    .carousel {
+      position: relative;
+      width: 220px;
+      margin: 40px auto;
+    }
+
+    .page {
+      width: 220px;
+      height: auto;
+      background-color: #fff;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      transition: transform 0.2s ease;
+    }
+
+    .page img {
+      width: 100%;
+      border-radius: 12px;
+    }
+
+    .audio-container {
+      text-align: center;
+      margin-top: 30px;
+    }
+
+    .audio-container audio {
+      width: 90%;
+      max-width: 600px;
+      border-radius: 12px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    }
+
+    .nav-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 2rem;
+      background: none;
+      border: none;
+      color: #ff4d4d;
+      cursor: pointer;
+      z-index: 10;
+    }
+
+    .prev-btn {
+      left: -40px;
+    }
+
+    .next-btn {
+      right: -40px;
+    }
+
+    button {
+      margin: 40px auto;
+      display: block;
+      background: linear-gradient(145deg, #ff6f91, #ff9671);
+      color: white;
+      border: none;
+      padding: 12px 24px;
+      border-radius: 12px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    button:hover {
+      transform: scale(1.05);
+      background: linear-gradient(145deg, #ff3e73, #ff7e5f);
+    }
+  </style>
+</head>
+<body>
+  <div id="loadingScreen">
+    <div class="heart">❤️</div>
+    <div class="loading-text">Love letter is loading...</div>
+  </div>
+
+  <div class="text-container">
+    <h2>My letter to you</h2>
+    <p>Я отправил на адрес Чалы это письмо 6 сентября</p>
+    <p>Решил, если не получишь его до нашей встречи, оставить его здесь</p>
+    <p>Используй стрелочки, чтобы листать страницы</p>
+  </div>
+
+  <div class="carousel">
+    <button class="nav-btn prev-btn" onclick="changeSlide(-1)">&#10094;</button>
+    <div class="page" id="carouselPage">
+      <img src="page1.jpg" alt="Page 1">
+    </div>
+    <button class="nav-btn next-btn" onclick="changeSlide(1)">&#10095;</button>
+  </div>
+
+  <div class="audio-container">
+    <audio controls autoplay loop>
+      <source src="littledoyouknow.mp3" type="audio/mpeg">
+      Your browser does not support the audio element.
+    </audio>
+  </div>
+
+  <button onclick="window.location.href='thankyou.html'">← Назад на главную</button>
+
+  <script>
+    window.addEventListener("load", function () {
+      setTimeout(() => {
+        document.getElementById("loadingScreen").style.display = "none";
+      }, 3000);
+    });
+
+    const images = ['page1.jpg', 'page2.jpg', 'page3.jpg'];
+    let currentIndex = 0;
+
+    function changeSlide(direction) {
+      currentIndex = (currentIndex + direction + images.length) % images.length;
+      document.getElementById('carouselPage').innerHTML = '<img src="' + images[currentIndex] + '" alt="Page ' + (currentIndex + 1) + '">';
+    }
+  </script>
+</body>
+</html>

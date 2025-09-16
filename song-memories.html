@@ -1,0 +1,434 @@
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Эмоциональный Музыкальный Дневник</title>
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #ffebcc;
+      color: #333;
+    }
+
+    .diary-container {
+      max-width: 900px;
+      margin: 60px auto;
+      padding: 20px;
+      background: #fff;
+      border-radius: 16px;
+      box-shadow: 0 6px 12px rgba(0,0,0,0.1);
+    }
+
+    .diary-entry {
+      margin-bottom: 40px;
+      padding: 20px;
+      background-color: #fff8f0;
+      border-left: 5px solid #ff4d4d;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    }
+
+    .diary-entry h2 {
+      margin-top: 0;
+      color: #ff4d4d;
+    }
+
+    blockquote {
+      font-style: italic;
+      color: #666;
+      margin: 10px 0;
+      padding-left: 15px;
+      border-left: 4px solid #ffc1c1;
+    }
+
+    .visual-element {
+      margin: 20px 0;
+      text-align: center;
+    }
+
+    .visual-element img {
+      width: 100%;
+      max-width: 600px;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+
+    .music-player audio {
+      width: 100%;
+      border-radius: 8px;
+      margin-top: 10px;
+    }
+
+    .tab-button {
+      background-color: #ff4d4d;
+      color: white;
+      border: none;
+      padding: 12px 24px;
+      border-radius: 12px;
+      font-size: 16px;
+      cursor: pointer;
+      margin: 30px auto 0;
+      display: block;
+    }
+
+    .tab-button:hover {
+      background-color: #e33e3e;
+    }
+
+    @media (max-width: 600px) {
+      .diary-container {
+        padding: 10px;
+      }
+
+      .diary-entry {
+        padding: 15px;
+      }
+    }
+  </style>
+</head>
+<body>
+    <div id="loadingScreen">
+        <div>
+            <div class="heart">❤️</div>
+            <div class="loading-text">Music info is loading...</div>
+            <!-- Your new text here -->
+            <div class="additional-text">Я очень ценю наш плейлист "ChubbyBitch"Он нам помогал общаться чувствами. Когда нет слов.</div>
+            <div class="additional-text">Я выбрал пару песен которые особенны для меня.</div>
+        </div>
+    </div>
+    <!-- Контейнер для всего дневника -->
+    <div class="diary-container">
+        <!-- Запись в дневнике -->
+        <div class="diary-entry">
+            </header>
+            <div class="diary-entry">
+                <h2>Dandelions</h2>
+                <blockquote>
+                    Wishing on dandelions all of the time<br>
+                    Praying to God that one day you'll be mine<br>
+                    Wishing on dandelions all of the time, all of the time<br>
+                    I think that you are the one for me<br>
+                    'Cause it gets so hard to breathe<br>
+                    When you're looking at me, I've never felt so alive and free<br>
+                    When you're looking at me, I've never felt so happy<br>
+                    And I've heard of a love that comes once in a lifetime<br>
+                    And I'm pretty sure that you are that love of mine<br>
+                </blockquote>
+                <p>С этой песни начались наши отношения. Она самая значимая</p>
+                <div class="visual-element">
+                    <img src="dangelion.jpg" alt="Описание изображения">
+                </div>
+                <div class="music-player">
+                    <audio controls>
+                        <source src="dandelions.mp3" type="audio/mpeg">
+                        Your browser does not support the audio element.
+                    </audio>
+                </div>
+            </div>
+
+            <h2>Mere Naseeb Mein</h2> <!-- Название песни -->
+            <blockquote>
+                "Mere naseeb mein tu hai ke nahi<br>
+                Tere naseeb mein main hoon ke nahi<br>
+                Mere naseeb mein tu hai ke nahi<br>
+                Tere naseeb mein main hoon ke nahi"
+            </blockquote>
+            <p>Мы с тобой долгое время не разговаривали в мае. Когда ты отправила эту песню, я понял что есть еще шанс вернуть нас.</p> <!-- Личные мысли -->
+            <div class="visual-element">
+                <img src="Mere.jpg" alt="Разбитое сердце"> <!-- Визуальный элемент -->
+            </div>
+            <div class="music-player">
+                <audio controls>
+                    <source src="mere.mp3" type="audio/mpeg"> <!-- Плеер для прослушивания песни -->
+                    Your browser does not support the audio element.
+                </audio>
+            </div>
+        </div>
+
+                <!-- Additional Entries -->
+                <div class="diary-entry">
+                    <h2>Spring Day</h2> <!-- Название песни -->
+                    <blockquote>
+                        I miss you<br>
+                        Saying this makes me miss you even more<br>
+                        I miss you<br>
+                        Even though I'm looking at your photo<br>
+                        Time's so cruel, I hate us<br>
+                        Seeing each other is now more difficult<br>
+                        It's all winter here, even in August<br>
+                        My heart is running on time, alone on the Snowpiercer<br>
+                        I want to go to the other side of Earth, holding your hand to put an end to<br>
+                        this winter<br>
+                        How much should my longings fall like snow<br>
+                        Before the days of spring return, friend?<br>
+                    </blockquote>
+                    <p>Я не могу перестать слушать твою любимую песню. Она попадает точно в мое настроение.</p> <!-- Личные мысли -->
+                    <div class="visual-element">
+                        <img src="springday.jpg" alt="Разбитое сердце"> <!-- Визуальный элемент -->
+                    </div>
+                    <div class="music-player">
+                        <audio controls>
+                            <source src="spring.mp3" type="audio/mpeg"> <!-- Плеер для прослушивания песни -->
+                            Your browser does not support the audio element.
+                        </audio>
+                    </div>
+                </div>
+
+        <div class="diary-container">
+            <!-- Запись в дневнике -->
+            <div class="diary-entry">
+                <h2>Айпери Кубик кызы</h2> <!-- Название песни -->
+                <blockquote>
+                    Айлана жымжырт, караңгы түн ортосу,<br>
+                    Таңдагы шыбырт, калп эле ойготпочу.<br>
+                    Уйку жок неге, сураймын бул эмне?<br>
+                    Сезимдер учат, убакыт токтотпочу.<br>
+
+                    Алып учат неге, алыстарга мени<br>
+                    Алгалаган сезим шаштырат.<br>
+                    Ак куу болуп учкум келет айдай сулуу кезимде,<br>
+                    Асмандагы жылдыз болуш ал сезимде.<br>
+                    Жылдыз болуп учкум келет жакшынакай кезимде,<br>
+                    Жер жүзүндө адам болуш, ал эсимде.<br>
+                    Шаштырба сезим секелек кезим,<br>
+                    Шашпачы дедиң уксаңчы кебим.<br>
+                    Өзүмдөн өзүм өрт болуп жанам,<br>
+                    Шаркырап аккан шаштырган сезим.<br>
+
+                    Алып учат неге, алыстарга мени<br>
+                    Алгалаган сезим шаштырат.<br>
+                    Ак куу болуп учкум келет айдай сулуу кезимде,<br>
+                    Асмандагы жылдыз болуш ал сезимде.<br>
+                    Жылдыз болуп учкум келет жакшынакай кезимде,<br>
+                    Жер жүзүндө адам болуш, ал эсимде.<br>
+                </blockquote>
+                <p>Ты мне очень дорога</p> <!-- Личные мысли -->
+                <div class="visual-element">
+                    <img src="sezim.jpg" alt="Разбитое сердце"> <!-- Визуальный элемент -->
+                </div>
+                <div class="music-player">
+                    <audio controls>
+                        <source src="sezim.mp3" type="audio/mpeg"> <!-- Плеер для прослушивания песни -->
+                        Your browser does not support the audio element.
+                    </audio>
+                </div>
+            </div>
+
+            <div class="diary-entry">
+                <h2>In Silence</h2> <!-- Название песни -->
+                <blockquote>
+                    In silence, no one answers<br>
+                    But I still hear your voice<br>
+                    If you'd only come hold me<br>
+                    If you'd only come<br>
+
+                    Tears flow<br>
+                    Sorry I'm late again<br>
+                    Let them fall<br>
+                    Sorry I'm late again<br>
+                    In darkness, it's getting hard<br>
+                    Getting hard to stand<br>
+                    If you hear me, if you see me<br>
+                    Won't you come closer?<br>
+                    Tears flow<br>
+                    Sorry I'm late again<br>
+                    Let them fall<br>
+                    Sorry I'm late again<br>
+                    Can you just tell me once<br>
+                    You'll never leave me?<br>
+                    Afraid of losing you<br>
+                    Will you just lay with me?<br>
+                    There will be no fears<br>
+                </blockquote>
+                <p>Я не хочу тебя терять. Когда я приеду в дубай встреть меня на MG.</p> <!-- Личные мысли -->
+                <div class="visual-element">
+                    <img src="MGBG.jpg" alt="Разбитое сердце"> <!-- Визуальный элемент -->
+                </div>
+                <div class="music-player">
+                    <audio controls>
+                        <source src="silence.mp3" type="audio/mpeg"> <!-- Плеер для прослушивания песни -->
+                        Your browser does not support the audio element.
+                    </audio>
+                </div>
+            </div>
+
+
+
+        <div class="diary-entry">
+            <h2>BLOO - Downtown Baby</h2> <!-- Название песни -->
+            <blockquote>
+                Baby without you<br>
+                I can't do this anymore<br>
+                You're my downtown baby<br>
+                Your eyes are the stars of the night<br>
+                I wanna dream of everynight<br>
+                Baby without you<br>
+                I can't do this anymore<br>
+                Your house number is 628<br>
+                I'm in front of your house so let's roll<br>
+                Don't waste your time and hold my hand<br>
+                I don't wanna let go<br>
+                With your hot pink hair and three piercings<br>
+                You liked my pillows<br>
+                We're bad at hurting each other<br>
+                One and only downtown baby<br>
+                You're my downtown baby<br>
+                Your eyes are the stars of the night<br>
+                I wanna dream of evеrynight<br>
+                Baby without you<br>
+                I can't do this anymore<br>
+            </blockquote>
+            <p>Когда я услышал эту песню, я понял, как сильно я хочу,<br>
+                чтобы ты осталась рядом, несмотря на все трудности,<br>
+                которые у нас были...</p> <!-- Личные мысли -->
+            <div class="visual-element">
+                <img src="downtown.jpg" alt="Разбитое сердце"> <!-- Визуальный элемент -->
+            </div>
+            <div class="music-player">
+                <audio controls>
+                    <source src="downtown.mp3" type="audio/mpeg"> <!-- Плеер для прослушивания песни -->
+                    Your browser does not support the audio element.
+                </audio>
+            </div>
+        </div>
+
+        <div class="diary-entry">
+            <h2>Вишневый Закат - Хочу домой</h2> <!-- Название песни -->
+            <blockquote>
+                Где бы я не был<br>
+                Я так хочу домой<br>
+                Дом - это место<br>
+                Это место, что пахнет тобой<br>
+
+                Грустные лица, грустные мы с тобой<br>
+                Может так надо, чтоб однажды мы встретились вновь<br>
+                Где бы я не был, я хочу домой<br>
+                Я так устал ходить по краю<br>
+            </blockquote>
+            <p>Хочу снова быть твоим домом в сердце</p> <!-- Личные мысли -->
+            <div class="visual-element">
+                <img src="home.jpg" alt="Разбитое сердце"> <!-- Визуальный элемент -->
+            </div>
+            <div class="music-player">
+                <audio controls>
+                    <source src="home.mp3" type="audio/mpeg"> <!-- Плеер для прослушивания песни -->
+                    Your browser does not support the audio element.
+                </audio>
+            </div>
+        </div>
+
+        <div class="diary-entry">
+            <h2>Everytime We Touch</h2>
+            <blockquote>
+                I still hear your voice when you sleep next to me<br>
+                I still feel your touch in my dreams<br>
+                Forgive me my weakness, but I don't know why<br>
+                Without you, it's hard to survive<br>
+                'Cause every time we touch<br>
+                I get this feeling<br>
+                And every time we kiss<br>
+                I swear I could fly<br>
+                Can't you feel my heart beat fast<br>
+                I want this to last<br>
+                Need you by my side<br>
+            </blockquote>
+            <p>Ты правда мне очень нужна</p>
+            <div class="visual-element">
+                <img src="youandme.jpg" alt="Описание изображения">
+            </div>
+            <div class="music-player">
+                <audio controls>
+                    <source src="wetouch.mp3" type="audio/mpeg">
+                    Your browser does not support the audio element.
+                </audio>
+            </div>
+        </div>
+
+        <div class="diary-entry">
+            <h2>Odinokiy ninja</h2>
+            <blockquote>
+                Я стою один ночью под дождём<br>
+                Все твои слова знаю наперёд<br>
+                Ты сейчас с другим, только не со мной<br>
+                А я, как дурак, со своей любовью<br>
+                Бегал за тобой, мечтал поцеловать<br>
+                Куча строчек о любви — вся исписана тетрадь<br>
+                В моём сердце боль, но тебе ведь наплевать<br>
+                Я стою один, снова снегопад<br>
+                Я стою один ночью под дождём<br>
+                Все твои слова знаю наперёд<br>
+                Ты сейчас с другим, только не со мной<br>
+                А я, как дурак, со своей любовью<br>
+                Одинокие, еее, одинокие, еее<br>
+                Мои строки о тебе — это всё, что на уме<br>
+                Еее, еее, еее<br>
+                Одинокие, еее, одинокие, еее<br>
+                Мои строки о тебе — это всё, что на уме<br>
+                В моих AirPods два сообщения<br>
+                Ты сказала, чтобы больше не звонил тебе<br>
+                Но я так не могу, ты как ЛСД<br>
+                Хочется всё ещё, с каждым разом всё сильней<br>
+                Скрыла Instagram, удалила из друзей<br>
+                Все мои тексты тлеют на твоём огне<br>
+                Я не знаю, как мне тебя забыть<br>
+                Снова снегопад, я стою один<br>
+                Режем по живому, не замечаешь, кто я<br>
+                Твой профиль в Instagram стал для меня иконой<br>
+                У тебя есть парень, у него есть джойнт<br>
+                А я, как дурак, со своей любовью<br>
+            </blockquote>
+            <p> Первая наша песня в плейлисте. Она наверно самая любимая твоя песня с которой я тебя познакомил. Никогда не думал что мы окажемся героями этой песни</p>
+            <div class="visual-element">
+                <img src="heart.jpg" alt="Описание изображения">
+            </div>
+            <div class="music-player">
+                <audio controls>
+                    <source src="od.mp3" type="audio/mpeg">
+                    Your browser does not support the audio element.
+                </audio>
+            </div>
+        </div>
+
+        <div class="diary-entry" style="display: flex; align-items: center;">
+            <button class="tab-button" onclick="goBackToMain()">Back to Main Page</button>
+            <span style="margin-left: 10px;">⬅️This button takes you back to the main page.</span>
+        </div>
+        <!-- ... -->
+    </div>
+    <script>
+    // Hide the loading screen 3 seconds after the page loads
+    window.addEventListener("load", function() {
+        setTimeout(function() {
+            document.getElementById("loadingScreen").style.display = "none";
+        }, 7000); // Wait for 3 seconds
+    });
+
+        // JavaScript to manage audio playback
+        document.addEventListener("DOMContentLoaded", function() {
+            const audios = document.querySelectorAll('audio');
+            let currentAudio = null;
+
+            audios.forEach(audio => {
+                audio.volume = 0.5; // Set volume to 50%
+
+                audio.addEventListener('play', function() {
+                    if (currentAudio && currentAudio !== audio) {
+                        currentAudio.pause();
+                        currentAudio.currentTime = 0;
+                    }
+                    currentAudio = audio;
+                });
+            });
+        });
+
+        function goBackToMain() {
+        // Redirects to the main page without showing the loading screen
+        window.location.href = 'thankyou.html'; // Replace 'index.html' with the actual main page URL
+    }
+    </script>
+</body>
+</html>

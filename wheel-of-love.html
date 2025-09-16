@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>20 фактов любви💕</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200">
+    <style>
+        /* Global Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Body Styling */
+        body {
+            min-height: 100vh;
+            display: grid;
+            place-items: center;
+            overflow: hidden;
+            font-family: sans-serif;
+            background-color: rgb(1, 1, 1);
+            background-image: linear-gradient(rgba(206, 17, 67, 0.882), rgb(0, 0, 0, 0.5));
+            color: white;
+            transition: background-color 500ms ease;
+        }
+
+        /* Header Styling */
+        header {
+            position: absolute;
+            z-index: 999;
+            text-align: center;
+            top: 0rem;
+            text-decoration: aquamarine;
+            padding: 1rem;
+            background: inherit;
+        }
+
+        /* Container for the Wheel of Love */
+        .container {
+            position: relative;
+            width: min(400px, 100%);
+        }
+
+        /* List Styling (Wheel of Love) */
+        ul {
+            list-style: none;
+            width: 100%;
+            height: 70%;
+            position: relative;
+            perspective: 900px;
+            transform-style: preserve-3d;
+        }
+
+        ul > li {
+            position: absolute;
+            left: 50%;
+            top: calc(50% - 1.2rem);
+            --rotateX: calc(
+            1deg * var(--rotateDegrees) * calc(var(--day_idx) - var(--currentDay))
+            );
+            transform: rotateX(var(--rotateX)) translateZ(190px) translateX(-50%)
+            scale(var(--scale, 1));
+            --hue: calc(var(--rotateDegrees) * var(--day_idx));
+            background-color: hsl(var(--hue), 50%, var(--lightness, 50%));
+            width: 170%;
+            color: white;
+            display: grid;
+            grid-template-columns: 2.5rem auto;
+            height: 2.4rem;
+            transition: transform 500ms ease, background-color 500ms ease;
+        }
+
+        ul > li.active {
+            --lightness: 30%;
+            --scale: 1.1;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        ul > li > * {
+            display: grid;
+            align-items: center;
+        }
+
+        li > time {
+            text-align: center;
+        }
+
+        li > span {
+            padding-inline-start: 0.5rem;
+            color: white;
+        }
+
+        /* Controls for Navigation */
+        .controls {
+            position: absolute;
+            top: 50%;
+            left: 170%;
+            transform: translateY(-50%);
+            display: flex;
+            flex-direction: column;
+            gap: 0.125rem;
+        }
+
+        .controls button {
+            width: 1.5rem;
+            aspect-ratio: 1;
+            font-size: 0.9rem;
+            color: white;
+            border: none;
+            background: #39657e;
+            display: flex;
+            place-items: center;
+        }
+
+        .controls button:hover,
+        .controls button:focus {
+            background: rgb(6, 60, 131);
+        }
+
+        .controls button:active {
+            transform: scale(0.9);
+        }
+
+        /* Optional Border Styling */
+        .border {
+            width: 96%;
+            height: 3em;
+            border: 1px solid white;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 600px) {
+            ul > li {
+                height: 1.8rem;
+                font-size: 0.8rem;
+            }
+
+            .controls {
+                left: 90%;
+            }
+
+            .controls button {
+                width: 1.2rem;
+            }
+        }
+
+                /* Loading screen styles */
+                #loadingScreen {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: #fff;
+        z-index: 9999;
+        }
+
+        .heart {
+        font-size: 4rem; /* Adjust size as needed */
+        color: #ff4d4d;
+        animation: pulse 1.5s infinite;
+        display: flex;
+        flex-direction: column;
+        align-items: center; /* Center content horizontally */
+        }
+
+.loading-text {
+    font-size: 1.5rem;
+    margin-top: 20px;
+    color: #ff4d4d;
+    text-align: center; /* Center text horizontally */
+}
+#loadingScreen .additional-text {
+    font-size: 16px;
+    color: #ff69b4;
+    text-align: center;
+    margin-top: 10px;
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.2);
+        opacity: 0.7;
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+        .loading-text {
+            font-size: 1.5rem;
+            margin-top: 20px;
+            color: #ff4d4d;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="loadingScreen">
+        <div>
+            <div class="heart">❤️</div>
+            <div class="loading-text">Love facts are loading...</div>
+            <!-- Your new text here -->
+            <div class="additional-text">6 февраля 2023 года я написал тебе эти 20 фактов, которые я люблю в тебе</div>
+            <div class="additional-text">Со временем их стало больше, но я хочу напомнить что мне больше всего в тебе нравилось</div>
+        </div>
+    </div>
+
+    <header>
+        <h1>Wheel of Love💕</h1>
+    </header>
+    <div class="container">
+        <ul></ul>
+        <div class="controls">
+            <button onclick="adjustDay(-1)">▲</button>
+            <button onclick="adjustDay(1)">▼</button>
+        </div>
+    </div>
+    <script>
+    // Hide the loading screen 3 seconds after the page loads
+    window.addEventListener("load", function() {
+        setTimeout(function() {
+            document.getElementById("loadingScreen").style.display = "none";
+        }, 8000); // Wait for 3 seconds
+    });
+
+        const febHolidays = [
+            "Дорогая Мадиня,",
+            "Я тебя люблю💙",
+            "Люблю твой животик- люблю как он ворчит, он у тебя вообще такой разговорчивый 🥺💋",
+            "Люблю твою попку- такие орехи ты накачала🔥",
+            "Люблю твой носик - такой красивый и аккуратный🥺😍 ",
+            "Люблю любоваться твоим личиком после того как ты совершишь водные процедуры - такой милый цыпленочек🐥",
+            "Люблю твои пальчики - так хочу сжимать твои ладони👫и гулять по парку🥰",
+            "Люблю твои аппетитные ножки🤤- такие сладкие прям хочется им кусь кусь сделать🤓",
+            "Люблю твои брови - хоть ты и говоришь что они не ровные, но мне они нравятся🥰",
+            "Люблю как ты пчихаешь - никогда не чихнешь один раз🤓",
+            "Люблю твою улыбку - самая милая вещь которую я видел в своей жизни, когда ты улыбаешься хочу вместе с тобой улыбаться🥺",
+            "Люблю твои глазки👀такие красивые, так хочу вживую ими любоваться😍в них я вижу настоящую любовь💙💋 ",
+            "Люблю смотреть как ты танцуешь💃ты так плавно двигаешься🥺меня так всегда это завораживает, не могу отвести глаза когда моя девочка танцует👀",
+            "Люблю смотреть как ты зеваешь🥱ты такая милая когда открываешь свой ротик маленький🤭Иногда ты зеваешь со звуком, это такой милый звук получается🥺",
+            "Люблю твои щечки - так хочу их целовать и кусать🐺",
+            "Люблю твое чувство юмора🤡 - у тебя очень хорошое чувство самоиронии, а от того и отличное чувство юмора, всегда твои шутки в тему и смешат меня🥰",
+            "Люблю твой характер- ты девушка моей мечты, где надо промолчит, где надо меня на место поставит🥰",
+            "Люблю как ты общаешься с людьми - ты очень хорошо воспитанная девочка👧",
+            "Люблю что у тебя нет вредных привычек- алкоголь в счет не берем😇",
+            "Люблю твой голосочек - он такой миленький🥰так приятно его слушать, особенно начинать день с твоего голоска",
+            "Люблю твои лидерские способности- они уже начинают проявляться после проектов jewel💎",
+            "Я тебя очень сильно люблю Мадиня💙"
+        ];
+
+        const ulEl = document.querySelector("ul");
+        const d = new Date();
+        let daynumber = d.getMonth() == 1 ? d.getDate() - 1 : 0;
+        let activeIndex = daynumber;
+        const rotate = -360 / febHolidays.length;
+
+        init();
+
+        function init() {
+            febHolidays.forEach((holiday, idx) => {
+                const liEl = document.createElement("li");
+                liEl.style.setProperty("--day_idx", idx);
+                liEl.innerHTML = `<time datetime="2022-02-${idx + 1}">${idx + 1}</time><span>${holiday}</span>`;
+                ulEl.append(liEl);
+            });
+            ulEl.style.setProperty("--rotateDegrees", rotate);
+            adjustDay(0);
+        }
+
+        function adjustDay(nr) {
+            daynumber += nr;
+            ulEl.style.setProperty("--currentDay", daynumber);
+            const activeEl = document.querySelector("li.active");
+            if (activeEl) activeEl.classList.remove("active");
+            activeIndex = (activeIndex + nr + febHolidays.length) % febHolidays.length;
+            const newActiveEl = document.querySelector(`li:nth-child(${activeIndex + 1})`);
+            document.body.style.backgroundColor = window.getComputedStyle(newActiveEl).backgroundColor;
+            newActiveEl.classList.add("active");
+        }
+
+        window.addEventListener("keydown", (e) => {
+            switch (e.key) {
+                case "ArrowUp":
+                    adjustDay(-1);
+                    break;
+                case "ArrowDown":
+                    adjustDay(1);
+                    break;
+                default:
+                    return;
+            }
+        });
+    </script>
+</body>
+</html>
