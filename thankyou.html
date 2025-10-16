@@ -228,6 +228,31 @@
     <p id="timeElapsed"></p>
   </div>
 
+   <div id="video-container" class="reveal" data-reveal-delay="200ms">
+  <h2>Our Airport Moment 🎬</h2>
+  <p>Угар, до чего техника дошла.</p>
+
+  <div class="video-wrapper">
+    <video id="reunionVideo"
+           controls
+           playsinline
+           preload="metadata"
+           poster="poster.jpg"
+           muted>
+      <source src="sora.MP4" type="video/mp4">
+      <source src="video.webm" type="video/webm">
+      Your browser does not support the video tag.
+    </video>
+  </div>
+
+  <div class="video-actions">
+    <button onclick="document.getElementById('reunionVideo').play()">Play ▶</button>
+    <button onclick="document.getElementById('reunionVideo').pause()">Pause ⏸</button>
+    <a href="sora.MP4" download>
+    </a>
+  </div>
+</div>
+
   <div class="message">
     <h2>"Lets stay forever 21!"</h2>
     <p>Может я не прав, может нам стоит заново подружиться чтобы наладить коннект.</p>
