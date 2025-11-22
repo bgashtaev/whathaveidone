@@ -1,6 +1,5 @@
-
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -17,6 +16,7 @@
       overflow-x: hidden;
     }
 
+    /* LOADING SCREEN */
     #loadingScreen {
       position: fixed;
       top: 0;
@@ -50,6 +50,18 @@
       100% { transform: scale(1); }
     }
 
+    /* MAIN CONTENT */
+    #mainContent {
+      opacity: 0;
+      transition: opacity 0.8s ease-out;
+      padding-bottom: 40px;
+      display: none;
+    }
+
+    #mainContent.content-visible {
+      opacity: 1;
+    }
+
     .text-container {
       text-align: center;
       margin-top: 40px;
@@ -61,12 +73,42 @@
       margin-left: auto;
       margin-right: auto;
       box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+      transition: box-shadow 0.3s ease, transform 0.3s ease;
+    }
+
+    .text-container:hover {
+      box-shadow: 0 16px 40px rgba(255, 100, 160, 0.35);
+      transform: translateY(-4px);
+    }
+
+    .text-container h2 {
+      font-family: 'Caveat', cursive;
+      color: #ff4d4d;
+      font-size: 2.3rem;
+      margin-bottom: 10px;
+    }
+
+    .text-container p {
+      margin: 6px 0;
+    }
+
+    .carousel-wrapper {
+      margin-top: 40px;
+      display: flex;
+      justify-content: center;
     }
 
     .carousel {
       position: relative;
       width: 220px;
-      margin: 40px auto;
+      margin: 0 auto;
+      transition: box-shadow 0.3s ease, transform 0.3s ease;
+    }
+
+    .carousel:hover {
+      box-shadow: 0 16px 40px rgba(255, 100, 160, 0.25);
+      transform: translateY(-4px);
+      border-radius: 16px;
     }
 
     .page {
@@ -75,24 +117,14 @@
       background-color: #fff;
       border-radius: 12px;
       box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-      transition: transform 0.2s ease;
+      overflow: hidden;
+      cursor: zoom-in;
     }
 
     .page img {
       width: 100%;
       border-radius: 12px;
-    }
-
-    .audio-container {
-      text-align: center;
-      margin-top: 30px;
-    }
-
-    .audio-container audio {
-      width: 90%;
-      max-width: 600px;
-      border-radius: 12px;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+      display: block;
     }
 
     .nav-btn {
@@ -105,6 +137,12 @@
       color: #ff4d4d;
       cursor: pointer;
       z-index: 10;
+      transition: transform 0.2s ease, color 0.2s ease;
+    }
+
+    .nav-btn:hover {
+      transform: translateY(-50%) scale(1.1);
+      color: #ff1d3f;
     }
 
     .prev-btn {
@@ -115,7 +153,36 @@
       right: -40px;
     }
 
-    button {
+    .audio-container {
+      text-align: center;
+      margin-top: 30px;
+      padding: 10px 20px 0;
+    }
+
+    .audio-inner {
+      backdrop-filter: blur(10px);
+      background: rgba(255, 255, 255, 0.6);
+      border-radius: 15px;
+      max-width: 700px;
+      margin: 0 auto;
+      padding: 20px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+      transition: box-shadow 0.3s ease, transform 0.3s ease;
+    }
+
+    .audio-inner:hover {
+      box-shadow: 0 16px 40px rgba(255, 100, 160, 0.35);
+      transform: translateY(-4px);
+    }
+
+    .audio-container audio {
+      width: 100%;
+      max-width: 600px;
+      border-radius: 12px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    }
+
+    button.back-btn {
       margin: 40px auto;
       display: block;
       background: linear-gradient(145deg, #ff6f91, #ff9671);
@@ -129,9 +196,90 @@
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     }
 
-    button:hover {
-      transform: scale(1.05);
+    button.back-btn:hover {
+      transform: scale(1.05) translateY(-1px);
       background: linear-gradient(145deg, #ff3e73, #ff7e5f);
+      box-shadow: 0 10px 24px rgba(255, 100, 160, 0.45);
+    }
+
+    /* SCROLL REVEAL */
+    .reveal {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+      transition-delay: var(--reveal-delay, 0s);
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* LIGHTBOX / MODAL IMAGE */
+    #imageModal {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.75);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 10000;
+    }
+
+    #imageModal.visible {
+      display: flex;
+      animation: modalFadeIn 0.25s ease-out;
+    }
+
+    @keyframes modalFadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    .modal-content {
+      max-width: 95vw;
+      max-height: 95vh;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 16px 40px rgba(0,0,0,0.6);
+      background: #fff;
+      position: relative;
+      animation: zoomIn 0.25s ease-out;
+    }
+
+    @keyframes zoomIn {
+      from { transform: scale(0.9); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+
+    .modal-content img {
+      display: block;
+      max-width: 100%;
+      max-height: 100%;
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 8px;
+      right: 12px;
+      font-size: 2rem;
+      color: #ff4d4d;
+      cursor: pointer;
+      text-shadow: 0 0 8px rgba(0,0,0,0.6);
+    }
+
+    @media (max-width: 600px) {
+      .nav-btn {
+        font-size: 1.6rem;
+        left: -28px;
+        right: -28px;
+      }
+      .text-container {
+        margin-top: 30px;
+      }
+      .carousel-wrapper {
+        margin-top: 30px;
+      }
     }
   </style>
 </head>
@@ -141,44 +289,142 @@
     <div class="loading-text">Love letter is loading...</div>
   </div>
 
-  <div class="text-container">
-    <h2>My letter to you</h2>
-    <p>Я отправил на адрес Чалы это письмо 6 сентября</p>
-    <p>Решил, если не получишь его до нашей встречи, оставить его здесь</p>
-    <p>Используй стрелочки, чтобы листать страницы</p>
-  </div>
-
-  <div class="carousel">
-    <button class="nav-btn prev-btn" onclick="changeSlide(-1)">&#10094;</button>
-    <div class="page" id="carouselPage">
-      <img src="page1.jpg" alt="Page 1">
+  <!-- Модальное окно для увеличенной страницы -->
+  <div id="imageModal">
+    <div class="modal-content">
+      <span class="modal-close" id="modalClose">&times;</span>
+      <img id="modalImage" src="" alt="Letter page enlarged">
     </div>
-    <button class="nav-btn next-btn" onclick="changeSlide(1)">&#10095;</button>
   </div>
 
-  <div class="audio-container">
-    <audio controls autoplay loop>
-      <source src="littledoyouknow.mp3" type="audio/mpeg">
-      Your browser does not support the audio element.
-    </audio>
-  </div>
+  <div id="mainContent">
+    <div class="text-container reveal" data-reveal-delay="0s">
+      <h2>My letter to you</h2>
+      <p>Я отправил на адрес Чалы это письмо 6 сентября.</p>
+      <p>Решил, если не получишь его до нашей встречи, оставить его здесь.</p>
+      <p>Используй стрелочки, чтобы листать страницы. Можешь нажать на страницу, чтобы увеличить её.</p>
+    </div>
 
-  <button onclick="window.location.href='thankyou.html'">← Назад на главную</button>
+    <div class="carousel-wrapper reveal" data-reveal-delay="0.15s">
+      <div class="carousel">
+        <button class="nav-btn prev-btn" onclick="changeSlide(-1)">&#10094;</button>
+        <div class="page" id="carouselPage">
+          <img src="page1.jpg" alt="Page 1">
+        </div>
+        <button class="nav-btn next-btn" onclick="changeSlide(1)">&#10095;</button>
+      </div>
+    </div>
+
+    <div class="audio-container reveal" data-reveal-delay="0.3s">
+      <div class="audio-inner">
+        <audio controls autoplay loop>
+          <source src="littledoyouknow.mp3" type="audio/mpeg">
+          Your browser does not support the audio element.
+        </audio>
+      </div>
+    </div>
+
+    <button class="back-btn reveal" data-reveal-delay="0.45s"
+            onclick="window.location.href='thankyou.html'">
+      ← Назад на главную
+    </button>
+  </div>
 
   <script>
+    // Прелоадер + плавное появление контента
     window.addEventListener("load", function () {
       setTimeout(() => {
-        document.getElementById("loadingScreen").style.display = "none";
+        const loading = document.getElementById("loadingScreen");
+        const mainContent = document.getElementById("mainContent");
+        if (loading) loading.style.display = "none";
+        if (mainContent) {
+          mainContent.style.display = "block";
+          requestAnimationFrame(() => {
+            mainContent.classList.add("content-visible");
+          });
+        }
       }, 3000);
     });
 
+    // Карусель страниц письма
     const images = ['page1.jpg', 'page2.jpg', 'page3.jpg'];
     let currentIndex = 0;
 
+    function attachImageClick() {
+      const img = document.querySelector('#carouselPage img');
+      if (!img) return;
+      img.style.cursor = 'zoom-in';
+      img.addEventListener('click', openModal);
+    }
+
     function changeSlide(direction) {
       currentIndex = (currentIndex + direction + images.length) % images.length;
-      document.getElementById('carouselPage').innerHTML = '<img src="' + images[currentIndex] + '" alt="Page ' + (currentIndex + 1) + '">';
+      const page = document.getElementById('carouselPage');
+      page.innerHTML =
+        '<img src="' + images[currentIndex] + '" alt="Page ' + (currentIndex + 1) + '">';
+      attachImageClick();
     }
+
+    // Модальное окно с увеличенной картинкой
+    const imageModal = document.getElementById('imageModal');
+    const modalImage = document.getElementById('modalImage');
+    const modalClose = document.getElementById('modalClose');
+
+    function openModal() {
+      modalImage.src = images[currentIndex];
+      imageModal.classList.add('visible');
+    }
+
+    function closeModal() {
+      imageModal.classList.remove('visible');
+      modalImage.src = '';
+    }
+
+    // Закрытие по крестику
+    modalClose.addEventListener('click', closeModal);
+
+    // Закрытие по клику по фону
+    imageModal.addEventListener('click', (e) => {
+      if (e.target === imageModal) {
+        closeModal();
+      }
+    });
+
+    // Закрытие по Esc
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && imageModal.classList.contains('visible')) {
+        closeModal();
+      }
+    });
+
+    // Первоначально привязываем к первой странице
+    attachImageClick();
+
+    // Scroll reveal
+    const revealElements = document.querySelectorAll('.reveal');
+
+    const observerOptions = {
+      threshold: 0.15
+    };
+
+    const revealOnScroll = (entries, observer) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    };
+
+    const observer = new IntersectionObserver(revealOnScroll, observerOptions);
+
+    revealElements.forEach(el => {
+      const delay = el.dataset.revealDelay;
+      if (delay) {
+        el.style.setProperty('--reveal-delay', delay);
+      }
+      observer.observe(el);
+    });
   </script>
 </body>
 </html>
